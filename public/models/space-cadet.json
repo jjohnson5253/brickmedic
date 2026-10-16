@@ -1,0 +1,126 @@
+{
+  "name": "Space Cadet",
+  "description": "A little explorer with a wing that missed its connection.",
+  "bricks": [
+    {
+      "id": "hull-a",
+      "part": "3001",
+      "color": 15,
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "rotated": false,
+      "label": "Lower hull"
+    },
+    {
+      "id": "hull-b",
+      "part": "3001",
+      "color": 15,
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "rotated": false,
+      "label": "Lower hull"
+    },
+    {
+      "id": "hull-bridge",
+      "part": "3001",
+      "color": 15,
+      "x": 0,
+      "y": 4,
+      "z": 1,
+      "rotated": true,
+      "label": "Hull bridge"
+    },
+    {
+      "id": "nose",
+      "part": "3003",
+      "color": 14,
+      "x": 1,
+      "y": 3,
+      "z": -1,
+      "rotated": false,
+      "label": "Explorer nose"
+    },
+    {
+      "id": "cockpit",
+      "part": "3003",
+      "color": 1,
+      "x": 1,
+      "y": 7,
+      "z": 1,
+      "rotated": false,
+      "label": "Cockpit"
+    },
+    {
+      "id": "canopy",
+      "part": "3022",
+      "color": 0,
+      "x": 1,
+      "y": 10,
+      "z": 1,
+      "rotated": false,
+      "label": "Canopy"
+    },
+    {
+      "id": "engine-l",
+      "part": "3005",
+      "color": 25,
+      "x": 0,
+      "y": 3,
+      "z": 3,
+      "rotated": false,
+      "label": "Port thruster"
+    },
+    {
+      "id": "engine-r",
+      "part": "3005",
+      "color": 25,
+      "x": 3,
+      "y": 3,
+      "z": 3,
+      "rotated": false,
+      "label": "Starboard thruster"
+    },
+    {
+      "id": "left-wing",
+      "part": "3020",
+      "color": 4,
+      "x": -3,
+      "y": 3,
+      "z": 1,
+      "rotated": true,
+      "label": "Port wing"
+    },
+    {
+      "id": "left-tip",
+      "part": "3023",
+      "color": 14,
+      "x": -3,
+      "y": 4,
+      "z": 1,
+      "rotated": false,
+      "label": "Port wing tip"
+    },
+    {
+      "id": "right-wing",
+      "part": "3020",
+      "color": 4,
+      "x": 4,
+      "y": 5,
+      "z": 1,
+      "rotated": true,
+      "label": "Disconnected wing"
+    },
+    {
+      "id": "right-tip",
+      "part": "3023",
+      "color": 14,
+      "x": 7,
+      "y": 6,
+      "z": 1,
+      "rotated": false,
+      "label": "Wing tip"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+0 Garden House — BrickMedic export
+0 // Coordinates use LDraw units. Connectivity checked in the supported upright brick subset.
+1 19 20 -8 40 1 0 0 0 1 0 0 0 1 3020.dat
+1 19 60 -8 40 1 0 0 0 1 0 0 0 1 3020.dat
+1 15 10 -32 40 1 0 0 0 1 0 0 0 1 3010.dat
+1 15 70 -32 40 1 0 0 0 1 0 0 0 1 3010.dat
+1 14 40 -32 70 0 0 -1 0 1 0 1 0 0 3004.dat
+1 2 20 -64 40 1 0 0 0 1 0 0 0 1 3020.dat
+1 2 60 -64 40 1 0 0 0 1 0 0 0 1 3020.dat
+1 2 40 -72 40 0 0 -1 0 1 0 1 0 0 3020.dat
+1 484 10 -96 50 1 0 0 0 1 0 0 0 1 3005.dat

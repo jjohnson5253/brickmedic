@@ -1,0 +1,10 @@
+0 Little Rover — BrickMedic export
+0 // Coordinates use LDraw units. Connectivity checked in the supported upright brick subset.
+1 25 20 -24 40 1 0 0 0 1 0 0 0 1 3001.dat
+1 25 60 -24 40 1 0 0 0 1 0 0 0 1 3001.dat
+1 15 40 -32 40 0 0 -1 0 1 0 1 0 0 3020.dat
+1 1 40 -56 40 1 0 0 0 1 0 0 0 1 3003.dat
+1 72 10 -72 10 1 0 0 0 1 0 0 0 1 3005.dat
+1 14 10 -80 10 1 0 0 0 1 0 0 0 1 3024.dat
+1 4 70 -80 70 1 0 0 0 1 0 0 0 1 3005.dat
+1 15 70 -88 70 1 0 0 0 1 0 0 0 1 3024.dat
