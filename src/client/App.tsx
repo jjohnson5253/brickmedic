@@ -30,9 +30,11 @@ import {
   type Candidate,
   type DemoInfo,
   type SessionState,
+  type RemovalImpact,
 } from "../shared/model";
 import { api, track } from "./api";
 import { BuildView, ConnectionGraph } from "./BuildView";
+import { RepairEvidence } from "./RepairEvidence";
 
 type EvidenceTab = "activity" | "graph" | "memory";
 type Queries = { anchored: string; component: string; path: string };
@@ -67,6 +69,7 @@ export function App() {
   const [connections, setConnections] = useState(false);
   const [viewKey, setViewKey] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
+  const [impact, setImpact] = useState<RemovalImpact | null>(null);
   const help = useRef<HTMLElement>(null);
   const upload = useRef<HTMLInputElement>(null);
   const started = useRef(false);
@@ -134,6 +137,7 @@ export function App() {
     try {
       const next = await api<SessionState>(path, body);
       setState(next);
+      setImpact(null);
       setCandidateId(next.plan?.recommendedId ?? null);
       if (path === "load" || path === "import") {
         setSelected(null);
@@ -156,6 +160,7 @@ export function App() {
 
   function selectBrick(id: string) {
     setSelected(id);
+    setImpact(null);
     track("brick_selected", { view: tab });
   }
   const plan = state?.plan;
@@ -169,6 +174,25 @@ export function App() {
   const healthy = !!state && disconnected === 0;
   const selectedBrick = state?.model.bricks.find((b) => b.id === selected);
   const demoId = demos.find((demo) => demo.name === state?.model.name)?.id;
+
+  async function testRemoval() {
+    if (!state || !selected) return;
+    setBusy("impact");
+    setError("");
+    track("removal_impact_requested", { view: tab });
+    try {
+      setImpact(
+        await api<RemovalImpact>("impact", {
+          brickId: selected,
+          revision: state.revision,
+        }),
+      );
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not test the removal.");
+    } finally {
+      setBusy("");
+    }
+  }
 
   async function importFile(file?: File) {
     if (!file) return;
@@ -222,7 +246,7 @@ export function App() {
               <CircleHelp size={19} />
             </button>
             <a
-              href="https://github.com/jjohnson5253/brickmedic/tree/feat/brickmedic-hackathon"
+              href="https://github.com/jjohnson5253/brickmedic"
               target="_blank"
               rel="noreferrer"
               className="github-link"
@@ -475,6 +499,41 @@ export function App() {
                             " → ",
                           ) || selectedBrick.id}
                         </code>
+                        <button
+                          className="impact-button"
+                          disabled={!!busy}
+                          onClick={() => {
+                            void testRemoval();
+                          }}
+                        >
+                          {busy === "impact"
+                            ? "Testing in FalkorDB…"
+                            : "What if I remove this brick?"}
+                        </button>
+                        {impact?.brickId === selectedBrick.id &&
+                          impact.revision === state.revision && (
+                            <p className="impact-result" role="status">
+                              <strong>
+                                {impact.newlyDisconnectedIds.length} other brick
+                                {impact.newlyDisconnectedIds.length === 1
+                                  ? ""
+                                  : "s"}{" "}
+                                {impact.newlyDisconnectedIds.length === 1
+                                  ? "loses its"
+                                  : "lose their"}{" "}
+                                path to the base.
+                              </strong>
+                              <span>
+                                {impact.newlyDisconnectedIds.length
+                                  ? impact.newlyDisconnectedIds.join(" · ")
+                                  : "Every other connected brick retains a path."}
+                              </span>
+                              <small>
+                                Tested in a disposable graph. Your model is
+                                unchanged.
+                              </small>
+                            </p>
+                          )}
                       </div>
                     )}
                   </div>
@@ -892,6 +951,9 @@ export function App() {
                 )}
               </div>
             </section>
+            <RepairEvidence
+              hasRepair={state.history.some((e) => e.kind === "applied")}
+            />
             <div className="workspace-note">
               <span>
                 <ShieldCheck size={14} /> Stud connectivity for upright bricks
@@ -910,7 +972,7 @@ export function App() {
         </span>
         <span>Built by Jake Johnson · Graph Hacks 2026</span>
         <a
-          href="https://github.com/jjohnson5253/brickmedic/blob/feat/brickmedic-hackathon/LICENSE"
+          href="https://github.com/jjohnson5253/brickmedic/blob/main/LICENSE"
           onClick={() => track("license_opened")}
         >
           Open source. Made to connect. <ExternalLink size={12} />
@@ -980,7 +1042,7 @@ export function App() {
               transforms are rejected.
             </p>
             <a
-              href="https://github.com/jjohnson5253/brickmedic/tree/feat/brickmedic-hackathon#readme"
+              href="https://github.com/jjohnson5253/brickmedic#readme"
               target="_blank"
               rel="noreferrer"
               onClick={() => track("documentation_opened")}

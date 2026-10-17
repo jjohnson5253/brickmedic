@@ -1,6 +1,6 @@
 # Building BrickMedic with FalkorDB
 
-_By Jake Johnson · October 16, 2026 · Built for Graph Hacks_
+_By Jake Johnson · October 17, 2026 · Built for Graph Hacks_
 
 A small brick spaceship can look finished while its wing is floating a fraction of a brick above the hull. The interesting question is whether every piece has a chain of actual connections back to the base.
 
@@ -58,6 +58,26 @@ A valid connection can still be an undesirable design choice. The user can skip 
 
 Plans and repair events also live in the graph. Each browser receives its own randomly named graph, keeping one visitor's model and proposals separate from another's. Model revisions prevent an old or repeated apply request from changing a newer build. Reloading a demo or importing a new model resets that model's repair memory.
 
+## Letting an agent ask a better question
+
+The second iteration adds a local MCP server built with the [official TypeScript SDK](https://ts.sdk.modelcontextprotocol.io/v2/). Its eight tools expose inspection, repair planning, removal simulation, memory, rejection and application. A compatible AI host can use those operations directly, while the server continues to own geometry validation and graph writes. Applying repairs is disabled until the owner enables it and should require approval in the host.
+
+The question I like most is: **what else disconnects if I remove this brick?** BrickMedic copies the model into a trial graph, removes the selected node, and compares base reachability. In the repaired spaceship, removing the starboard wing strands its tip. The live build stays unchanged. The answer follows connection paths, including alternate routes, rather than assuming every piece above the removed brick falls away.
+
+The MCP integration test also demonstrates a handoff. One client rejects a placement and closes. A fresh client reconnects to the same private session, recalls the rejection and current plan, then applies another verified repair. The memory survives because it lives in FalkorDB. This is a tested protocol workflow with scripted clients; it is not evidence that two autonomous language models collaborated. A separate container-replacement check confirmed that the model, active plan and rejection history survive replacing the database container, with append-only persistence in its named volume.
+
+![Removing the wing in a trial graph strands its tip while the live model stays connected](screenshots/removal-impact.jpg)
+
+## A repair should carry its evidence
+
+Every applied repair now writes a `Repair` node in the same Cypher operation as the updated model. It contains the before and after models, normalized SHA-256 hashes, original anchors, moved brick IDs, translation, revisions, connection counts and a verified path.
+
+A download button makes that evidence portable. Running `npm run verify -- docs/evidence/repair-proof.json` checks the declared movement and reconstructs both states in fresh FalkorDB graphs. It verifies the counts and each path hop again. Tampering with a model, an anchor, a count or a path fails validation. The hashes bind the contents; they do not authenticate the author.
+
+![Download a complete repair proof from the working app](screenshots/repair-proof.jpg)
+
+This gave the graph a second job beyond answering the initial question: it also makes the result reproducible outside the viewer.
+
 ## What the demo verified
 
 The integration tests ran against a real local FalkorDB container. The three synthetic models exercise different disconnected assemblies:
@@ -68,7 +88,9 @@ The integration tests ran against a real local FalkorDB container. The three syn
 | Garden House |      9 |                      4 |               1 |                   9 |
 | Little Rover |      8 |                      4 |               2 |                   8 |
 
-The tests also cover remembered rejections, reconnecting a database client, session isolation, concurrent repeated repairs, invalid inputs, temporary-graph cleanup, and LDraw export. Geometry tests check the difference between a stud connection, a touching side, and an intersection.
+The larger evaluation adds 32 seeded generated tower models with varying assembly cuts, gaps and offsets. Across all **35 synthetic cases**, the deterministic planner repaired every model, preserved every original anchor, and produced **114 repair proofs that all passed independent replay**. The [JSON report](evidence/evaluation.json) includes every case and the seed. These are synthetic tests derived from a small geometry vocabulary, not a real-world or held-out benchmark.
+
+The 44 tests also cover remembered rejections, reconnecting database and MCP clients, session isolation, concurrent repeated repairs, invalid inputs, proof tampering, removal impact, temporary-graph cleanup, and LDraw export. Geometry tests check the difference between a stud connection, a touching side, and an intersection.
 
 ![BrickMedic after applying a repair and verifying that every brick connects to the base](screenshots/repaired-build.jpg)
 
@@ -84,6 +106,6 @@ Keeping the part catalog small made the geometry rules testable. BrickMedic veri
 
 The project is public and MIT licensed. It includes three synthetic demos, a 3D viewer, a connection graph, strict LDraw and JSON import, repaired-model export, and local setup instructions.
 
-Start with the [BrickMedic repository](https://github.com/jjohnson5253/brickmedic/tree/feat/brickmedic-hackathon). FalkorDB is required for inspection, proposal verification, model state, and repair memory; the app does not substitute an in-memory graph when the database is unavailable.
+Start with the [BrickMedic repository](https://github.com/jjohnson5253/brickmedic). FalkorDB is required for inspection, proposal verification, model state, and repair memory; the app does not substitute an in-memory graph when the database is unavailable.
 
 _AI assistance disclosure: Codex assisted with the implementation, tests, documentation, and this article. The submitted code and graph behavior require participant review and understanding, as specified in the [Graph Hacks rules](https://www.wemakedevs.org/hackathons/falkordb/rules)._

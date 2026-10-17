@@ -5,14 +5,10 @@ services:
       - "127.0.0.1:6387:6379"
     volumes:
       - brickmedic-data:/data
-    command:
-      [
-        "redis-server",
-        "--loadmodule",
-        "/var/lib/falkordb/bin/falkordb.so",
-        "--appendonly",
-        "yes",
-      ]
+    environment:
+      BROWSER: "0"
+      FALKORDB_DATA_PATH: /data
+      REDIS_ARGS: --appendonly yes
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 2s

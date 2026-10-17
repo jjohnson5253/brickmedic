@@ -155,6 +155,21 @@ export function createApp(
   app.post("/api/plan", async (req, res) =>
     res.json(await service.plan(req.sessionId)),
   );
+  app.post("/api/impact", async (req, res) => {
+    const body = z
+      .object({
+        brickId: z.string().regex(/^[a-zA-Z0-9_-]{1,40}$/),
+        revision: z.number().int().positive(),
+      })
+      .parse(req.body);
+    res.json(
+      await service.removalImpact(req.sessionId, body.brickId, body.revision),
+    );
+  });
+  app.get("/api/proof", async (req, res) => {
+    res.attachment("brickmedic-repair-proof.json");
+    res.json(await service.proofs(req.sessionId));
+  });
   for (const action of ["apply", "reject"] as const) {
     app.post(`/api/${action}`, async (req, res) => {
       const body = z
@@ -210,12 +225,10 @@ export function createApp(
       "Request failed:",
       error instanceof Error ? error.name : "UnknownError",
     );
-    res
-      .status(503)
-      .json({
-        error:
-          "The graph or AI service is unavailable. Check the server and database, then try again.",
-      });
+    res.status(503).json({
+      error:
+        "The graph or AI service is unavailable. Check the server and database, then try again.",
+    });
   };
   app.use(errors);
   return app;

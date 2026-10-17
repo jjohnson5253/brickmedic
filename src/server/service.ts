@@ -3,6 +3,7 @@ import { DEMOS } from "./demos";
 import { movedModel, validateGeometry } from "./geometry";
 import { RepairPlanner } from "./planner";
 import { GraphStore, type Snapshot } from "./store";
+import { createProof } from "./proof";
 
 export class AppError extends Error {
   constructor(
@@ -134,6 +135,11 @@ export class BrickMedicService {
         trial.analysis.anchoredIds.length <= before.anchoredIds.length ||
         !before.anchoredIds.every((brickId) =>
           trial.analysis.anchoredIds.includes(brickId),
+        ) ||
+        !candidate.movedIds.every(
+          (brickId) =>
+            before.disconnectedIds.includes(brickId) &&
+            trial.analysis.anchoredIds.includes(brickId),
         )
       ) {
         throw new AppError(
@@ -141,7 +147,15 @@ export class BrickMedicService {
           "Repair did not improve connectivity while preserving the existing connections.",
         );
       }
-      await this.store.write(session, next);
+      const proof = createProof(
+        snapshot,
+        next,
+        candidate,
+        before.anchoredIds.length,
+        trial.analysis.anchoredIds.length,
+        trial.path,
+      );
+      await this.store.write(session, next, undefined, proof);
       await this.store.event(
         session,
         "applied",
@@ -174,6 +188,24 @@ export class BrickMedicService {
         await this.store.analyze(session, snapshot),
       );
       return this.state(session, snapshot);
+    });
+  }
+
+  proofs(session: string) {
+    return this.gate.run(session, async () => {
+      await this.ensure(session);
+      return this.store.proofs(session);
+    });
+  }
+
+  removalImpact(session: string, brickId: string, revision: number) {
+    return this.gate.run(session, async () => {
+      const snapshot = await this.ensure(session);
+      if (snapshot.revision !== revision)
+        throw new AppError(409, "The model changed. Inspect it again.");
+      if (!snapshot.model.bricks.some((b) => b.id === brickId))
+        throw new AppError(404, "Brick not found.");
+      return this.store.removalImpact(session, snapshot, brickId);
     });
   }
 }

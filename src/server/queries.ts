@@ -10,6 +10,9 @@ export const QUERIES = {
     FOREACH (b IN $bricks |
       CREATE (:Brick {id: b.id, label: b.label, part: b.part, color: b.color,
         x: b.x, y: b.y, z: b.z, w: b.w, d: b.d, h: b.h, root: b.root}))
+    FOREACH (p IN $proofs |
+      CREATE (:Repair {id: p.id, revision: p.revision, beforeHash: p.beforeHash,
+        afterHash: p.afterHash, proof: p.proof})-[:FOR]->(m))
     WITH m MATCH (a:Brick), (b:Brick)
     WHERE a.y + a.h = b.y
       AND a.x < b.x + b.w AND a.x + a.w > b.x
@@ -38,4 +41,7 @@ export const QUERIES = {
   reject: `MATCH (m:Model) CREATE (:Rejection {fingerprint: $fingerprint, revision: $revision})-[:FOR]->(m)`,
   rejections: `MATCH (r:Rejection)-[:FOR]->(:Model) WHERE r.revision = $revision RETURN r.fingerprint AS fingerprint`,
   clearMemory: "MATCH (n) WHERE NOT n:Brick AND NOT n:Model DETACH DELETE n",
+  proofs: `MATCH (r:Repair)-[:FOR]->(:Model)
+    RETURN r.proof AS proof ORDER BY r.revision DESC LIMIT 100`,
+  removeBrick: "MATCH (b:Brick {id: $id}) DETACH DELETE b",
 } as const;

@@ -115,3 +115,10 @@ export type DemoInfo = {
   category: string;
   bricks: number;
 };
+export type RemovalImpact = {
+  brickId: string;
+  revision: number;
+  newlyDisconnectedIds: string[];
+  connectedBefore: number;
+  connectedAfter: number;
+};

@@ -10,6 +10,7 @@ import type {
 } from "../shared/model";
 import { dimensions } from "./geometry";
 import { QUERIES } from "./queries";
+import type { RepairProof } from "./proof";
 
 export type Snapshot = {
   model: BrickModel;
@@ -70,6 +71,7 @@ export class GraphStore {
     session: string,
     snapshot: Snapshot,
     graph = this.graph(session),
+    proof?: RepairProof,
   ) {
     const bricks = snapshot.model.bricks.map((b) => ({
       ...b,
@@ -82,6 +84,17 @@ export class GraphStore {
         roots: snapshot.rootIds,
         revision: snapshot.revision,
         bricks,
+        proofs: proof
+          ? [
+              {
+                id: proof.id,
+                revision: proof.toRevision,
+                beforeHash: proof.beforeHash,
+                afterHash: proof.afterHash,
+                proof: JSON.stringify(proof),
+              },
+            ]
+          : [],
       },
       TIMEOUT: 5000,
     });
@@ -157,6 +170,44 @@ export class GraphStore {
       QUERIES.history,
     );
     return result.data ?? [];
+  }
+
+  async proofs(session: string): Promise<RepairProof[]> {
+    const result = await this.graph(session).roQuery<{ proof: string }>(
+      QUERIES.proofs,
+    );
+    return (result.data ?? []).map((r) => JSON.parse(r.proof));
+  }
+
+  /** Counterfactuals run in disposable graphs and never change the live revision. */
+  async removalImpact(session: string, snapshot: Snapshot, brickId: string) {
+    const scratch = this.db.selectGraph(
+      `brickmedic_trial_${randomUUID().replaceAll("-", "")}`,
+    );
+    try {
+      const before = await this.analyze(session, snapshot, undefined, false);
+      await this.write(session, snapshot, scratch);
+      await scratch.query(QUERIES.removeBrick, { params: { id: brickId } });
+      const remaining = {
+        ...snapshot,
+        model: {
+          ...snapshot.model,
+          bricks: snapshot.model.bricks.filter((b) => b.id !== brickId),
+        },
+      };
+      const after = await this.analyze(session, remaining, scratch, false);
+      return {
+        brickId,
+        revision: snapshot.revision,
+        newlyDisconnectedIds: before.anchoredIds.filter(
+          (id) => id !== brickId && !after.anchoredIds.includes(id),
+        ),
+        connectedBefore: before.anchoredIds.length,
+        connectedAfter: after.anchoredIds.length,
+      };
+    } finally {
+      await scratch.delete();
+    }
   }
 
   async event(session: string, kind: HistoryEntry["kind"], detail: string) {

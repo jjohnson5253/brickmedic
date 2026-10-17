@@ -11,3 +11,4 @@ playwright-report/
 # Generated from repository prose and screenshot sources at build time.
 public/blog.html
 public/screenshots/
+site/

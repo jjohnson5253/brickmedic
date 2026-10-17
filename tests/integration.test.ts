@@ -8,6 +8,12 @@ import { createApp } from "../src/server/app";
 import { DEMOS } from "../src/server/demos";
 import { modelSchema } from "../src/shared/model";
 import { parseLdraw } from "../src/server/ldraw";
+import { verifyProof } from "../src/server/verify-proof";
+import { Client } from "@modelcontextprotocol/client";
+import {
+  StdioClientTransport,
+  getDefaultEnvironment,
+} from "@modelcontextprotocol/client/stdio";
 
 let store: GraphStore;
 const sessions: string[] = [];
@@ -28,6 +34,105 @@ afterAll(async () => {
 const service = () => new BrickMedicService(store, new RepairPlanner(store));
 
 describe("real FalkorDB repair lifecycle", () => {
+  it("atomically persists a repair proof, independently replays it, and rejects forged paths", async () => {
+    const id = session(),
+      app = service();
+    let state = await app.plan(id);
+    state = await app.apply(id, state.plan!.recommendedId!, state.revision);
+    const [proof] = await app.proofs(id);
+    expect(proof.toRevision).toBe(state.revision);
+    expect(await verifyProof(store, id, proof)).toMatchObject({
+      valid: true,
+      newlyConnected: 2,
+    });
+    await expect(
+      verifyProof(store, id, { ...proof, path: ["right-tip", "hull-a"] }),
+    ).rejects.toThrow("connectivity");
+    await expect(
+      verifyProof(store, id, { ...proof, connectedAfter: 11 }),
+    ).rejects.toThrow("connectivity");
+  });
+  it("finds a brick's removal impact without changing live state or remembering a fake repair", async () => {
+    const id = session(),
+      app = service();
+    let state = await app.plan(id);
+    state = await app.apply(id, state.plan!.recommendedId!, state.revision);
+    const impact = await app.removalImpact(id, "right-wing", state.revision);
+    expect(impact.newlyDisconnectedIds).toEqual(["right-tip"]);
+    expect(await app.get(id)).toEqual(state);
+    await expect(
+      app.removalImpact(id, "missing", state.revision),
+    ).rejects.toThrow("not found");
+    await expect(
+      app.removalImpact(id, "right-wing", state.revision - 1),
+    ).rejects.toThrow("changed");
+  });
+  it("supports a real stdio MCP handoff between fresh clients with persistent rejection memory", async () => {
+    const id = session();
+    const connect = async () => {
+      const client = new Client({
+        name: "brickmedic-integration",
+        version: "1",
+      });
+      await client.connect(
+        new StdioClientTransport({
+          command: process.execPath,
+          args: ["--import", "tsx", "src/server/mcp.ts"],
+          cwd: process.cwd(),
+          env: {
+            ...getDefaultEnvironment(),
+            FALKORDB_URL: process.env.FALKORDB_URL ?? "redis://127.0.0.1:6387",
+            BRICKMEDIC_SESSION: id,
+            BRICKMEDIC_ALLOW_APPLY: "true",
+          },
+          stderr: "pipe",
+        }),
+      );
+      return client;
+    };
+    const call = async (client: Client, name: string, args = {}) => {
+      const result = await client.callTool({ name, arguments: args });
+      expect(result.isError).not.toBe(true);
+      const text = result.content.find((c) => c.type === "text");
+      if (text?.type !== "text") throw new Error("Missing tool result");
+      return JSON.parse(text.text);
+    };
+    let client = await connect();
+    let rejected: string;
+    try {
+      expect((await client.listTools()).tools).toHaveLength(8);
+      await call(client, "import_model", {
+        model: modelSchema.parse(DEMOS["space-cadet"]),
+      });
+      const state = await call(client, "plan_repairs");
+      rejected = state.plan.candidates[0].fingerprint;
+      await call(client, "reject_repair", {
+        id: state.plan.candidates[0].id,
+        revision: state.revision,
+      });
+    } finally {
+      await client.close();
+    }
+    client = await connect();
+    try {
+      const memory = await call(client, "recall_memory");
+      expect(memory.rejected).toContain(rejected!);
+      const state = await call(client, "inspect_model");
+      expect(
+        state.plan.candidates.every(
+          (c: { fingerprint: string }) => c.fingerprint !== rejected,
+        ),
+      ).toBe(true);
+      const repaired = await call(client, "apply_repair", {
+        id: state.plan.recommendedId,
+        revision: state.revision,
+      });
+      expect(repaired.analysis.disconnectedIds).toEqual([]);
+      expect((await call(client, "recall_memory")).proofs).toHaveLength(1);
+    } finally {
+      await client.close();
+    }
+  }, 20_000);
   it.each([
     ["space-cadet", 2],
     ["garden-house", 4],
