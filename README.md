@@ -17,7 +17,7 @@ Built by Jake Johnson for [Graph Hacks 2026](https://www.wemakedevs.org/hackatho
 - Import supported LDraw `.ldr` or BrickMedic JSON; download the current model as LDraw.
 - Optionally use Anthropic to select among verified repairs. The default graph planner requires no AI key.
 
-**[Read the published build post](https://jjohnson5253.github.io/brickmedic/)** · **[Narrated walkthrough](docs/brickmedic-demo.mp4)** · **[YouTube demo](https://youtu.be/gdq4DtKQlIs)** · **[Submission details and receipt](docs/submission.md)**
+**[Read the published build post](https://jjohnson5253.github.io/brickmedic/)** · **[Narrated walkthrough](docs/brickmedic-demo.mp4)** · **[YouTube demo](https://youtu.be/5bnvr_zqBGQ)** · **[Submission details and receipt](docs/submission.md)**
 
 ## Evidence in three minutes
 

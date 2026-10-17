@@ -6,6 +6,8 @@ A small brick spaceship can look finished while its wing is floating a fraction 
 
 I built **BrickMedic** to make that question visible. It inspects a model, finds disconnected assemblies, proposes a translation, and verifies the repaired model in FalkorDB. You can orbit the build, preview the proposed placement, and follow the connection path behind the recommendation.
 
+[Watch the 1:51 narrated walkthrough](https://youtu.be/5bnvr_zqBGQ), or [run the project locally](https://github.com/jjohnson5253/brickmedic#run-locally).
+
 ![BrickMedic showing a verified placement for a detached spaceship wing](screenshots/repair-preview.jpg)
 
 ## Turning a brick model into a graph
