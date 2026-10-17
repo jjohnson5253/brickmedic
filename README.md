@@ -2,7 +2,7 @@
 
 **Find the missing connection.** A FalkorDB-powered repair agent that finds disconnected brick assemblies, previews a repair, and verifies the result with graph queries.
 
-Built by Jake Johnson for [Graph Hacks 2026](https://www.wemakedevs.org/hackathons/falkordb). Primary entry: **Track 1 — Agents That Act on Connected Data**. Persistent repair memory also demonstrates part of Track 2; the prototype uses one planner rather than a team of agents.
+Built by Jake Johnson for [Graph Hacks 2026](https://www.wemakedevs.org/hackathons/falkordb). Submitted as a solo entry on October 17, 2026 in **Track 1 — Agents That Act on Connected Data** and **Track 2 — Agent Memory and Coordination**. Track 2 demonstrates persistent repair memory with one planner.
 
 ![BrickMedic repair preview](docs/screenshots/repair-preview.jpg)
 
@@ -14,7 +14,7 @@ Built by Jake Johnson for [Graph Hacks 2026](https://www.wemakedevs.org/hackatho
 - Import supported LDraw `.ldr` or BrickMedic JSON; download the current model as LDraw.
 - Optionally use Anthropic to select among verified repairs. The default graph planner requires no AI key.
 
-**[Read the build post](docs/blog-post.md)** · **[Watch the demo](docs/brickmedic-demo.mp4)** · **[Submission details](docs/submission.md)**
+**[Read the build post](docs/blog-post.md)** · **[Watch the YouTube demo](https://youtu.be/gdq4DtKQlIs)** · **[Submission details and receipt](docs/submission.md)**
 
 ## Run locally
 

@@ -4,9 +4,11 @@
 
 **Author:** Jake Johnson
 
+**Status:** Submitted as a solo entry on October 17, 2026. The saved WeMakeDevs record was read back and confirmed with the project title, both tracks, repository branch, demo video, and blog link.
+
 **Primary track:** Agents That Act on Connected Data
 
-**Optional secondary track:** Agent Memory and Coordination. The prototype persists plans, rejected placements, and history across reconnects; it does not implement multiple collaborating agents.
+**Secondary track:** Agent Memory and Coordination. The prototype persists plans, rejected placements, and history across reconnects; it does not implement multiple collaborating agents.
 
 ## Short description
 
@@ -17,8 +19,11 @@ BrickMedic finds brick assemblies with no connection path to the original base, 
 - [Public repository and implementation branch](https://github.com/jjohnson5253/brickmedic/tree/feat/brickmedic-hackathon)
 - [README with setup, graph data model, and Cypher](../README.md)
 - [Build post](blog-post.md)
-- [Demo video](brickmedic-demo.mp4)
+- [Unlisted YouTube demo submitted to the hackathon](https://youtu.be/gdq4DtKQlIs)
+- [Original demo video file](brickmedic-demo.mp4)
 - [Model examples](../public/models)
+- [Submission confirmation screenshot](submission-confirmation.jpg)
+- [Manage the submitted entry on WeMakeDevs](https://www.wemakedevs.org/hackathons/falkordb/submit) (requires the author's account)
 
 This submission uses complete local setup instructions. No public application deployment has been claimed. The implementation is in an open pull request awaiting the author's review and merge under the author's protected-branch policy.
 
@@ -44,14 +49,15 @@ The AI adapter was verified with controlled chooser implementations; a live Anth
 
 ## AI assistance disclosure
 
-Codex assisted with implementation, tests, prose, screenshots, and video preparation. Participant review and understanding are required before submission. All included data is synthetic. BrickMedic checks the supported stud-connection geometry; it does not simulate physical strength or arbitrary LEGO connectors.
+Codex assisted with implementation, tests, prose, screenshots, and video preparation. The participant remains responsible for reviewing and understanding the implementation. This assistance was disclosed in the submitted description and YouTube video description. All included data is synthetic. BrickMedic checks the supported stud-connection geometry; it does not simulate physical strength or arbitrary LEGO connectors.
 
 ## Submission checklist
 
-- Public source repository: prepared on the feature branch.
+- Public source repository: submitted with the implementation branch URL.
 - README, graph data model, queries, local setup, and demo: included.
 - Build post for the blog prize: included.
 - Live hosted deployment: not included; local setup is the chosen submission path.
-- Participant review, track selection on WeMakeDevs, and final event submission: author action remaining.
+- Track selection and final event submission: completed and verified on October 17, 2026.
+- Code pull request: remains open for participant review and merge.
 
 Deadline: **October 18, 2026, 11:59 PM IST**, equivalent to **1:29 PM America/Chicago**. See the [official schedule](https://www.wemakedevs.org/hackathons/falkordb/schedule).
