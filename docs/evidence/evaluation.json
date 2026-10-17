@@ -1,0 +1,365 @@
+{
+  "format": "brickmedic-evaluation/v1",
+  "generatedAt": "2026-10-17T18:47:10.743Z",
+  "seed": 20261017,
+  "mode": "deterministic graph planner; no paid model calls",
+  "dataset": "3 authored demos + 32 seeded generated tower models; synthetic, not held out",
+  "cases": 35,
+  "solved": 35,
+  "failures": [],
+  "repairs": 114,
+  "proofsReplayed": 114,
+  "allAnchorsPreserved": true,
+  "results": [
+    {
+      "model": "Space Cadet",
+      "bricks": 12,
+      "initiallyDisconnected": 2,
+      "remaining": 0,
+      "repairs": 1,
+      "proofsReplayed": 1,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 348
+    },
+    {
+      "model": "Garden House",
+      "bricks": 9,
+      "initiallyDisconnected": 4,
+      "remaining": 0,
+      "repairs": 1,
+      "proofsReplayed": 1,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 417
+    },
+    {
+      "model": "Little Rover",
+      "bricks": 8,
+      "initiallyDisconnected": 4,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 317
+    },
+    {
+      "model": "Generated towers 1",
+      "bricks": 13,
+      "initiallyDisconnected": 7,
+      "remaining": 0,
+      "repairs": 3,
+      "proofsReplayed": 3,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 484
+    },
+    {
+      "model": "Generated towers 2",
+      "bricks": 12,
+      "initiallyDisconnected": 8,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 285
+    },
+    {
+      "model": "Generated towers 3",
+      "bricks": 8,
+      "initiallyDisconnected": 4,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 261
+    },
+    {
+      "model": "Generated towers 4",
+      "bricks": 19,
+      "initiallyDisconnected": 9,
+      "remaining": 0,
+      "repairs": 4,
+      "proofsReplayed": 4,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 774
+    },
+    {
+      "model": "Generated towers 5",
+      "bricks": 17,
+      "initiallyDisconnected": 7,
+      "remaining": 0,
+      "repairs": 4,
+      "proofsReplayed": 4,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 755
+    },
+    {
+      "model": "Generated towers 6",
+      "bricks": 11,
+      "initiallyDisconnected": 6,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 245
+    },
+    {
+      "model": "Generated towers 7",
+      "bricks": 17,
+      "initiallyDisconnected": 8,
+      "remaining": 0,
+      "repairs": 4,
+      "proofsReplayed": 4,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 627
+    },
+    {
+      "model": "Generated towers 8",
+      "bricks": 18,
+      "initiallyDisconnected": 10,
+      "remaining": 0,
+      "repairs": 4,
+      "proofsReplayed": 4,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 714
+    },
+    {
+      "model": "Generated towers 9",
+      "bricks": 10,
+      "initiallyDisconnected": 5,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 253
+    },
+    {
+      "model": "Generated towers 10",
+      "bricks": 14,
+      "initiallyDisconnected": 7,
+      "remaining": 0,
+      "repairs": 3,
+      "proofsReplayed": 3,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 485
+    },
+    {
+      "model": "Generated towers 11",
+      "bricks": 13,
+      "initiallyDisconnected": 6,
+      "remaining": 0,
+      "repairs": 4,
+      "proofsReplayed": 4,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 589
+    },
+    {
+      "model": "Generated towers 12",
+      "bricks": 10,
+      "initiallyDisconnected": 5,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 267
+    },
+    {
+      "model": "Generated towers 13",
+      "bricks": 12,
+      "initiallyDisconnected": 4,
+      "remaining": 0,
+      "repairs": 3,
+      "proofsReplayed": 3,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 465
+    },
+    {
+      "model": "Generated towers 14",
+      "bricks": 24,
+      "initiallyDisconnected": 14,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 1109
+    },
+    {
+      "model": "Generated towers 15",
+      "bricks": 8,
+      "initiallyDisconnected": 2,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 227
+    },
+    {
+      "model": "Generated towers 16",
+      "bricks": 20,
+      "initiallyDisconnected": 10,
+      "remaining": 0,
+      "repairs": 4,
+      "proofsReplayed": 4,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 730
+    },
+    {
+      "model": "Generated towers 17",
+      "bricks": 26,
+      "initiallyDisconnected": 16,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 1095
+    },
+    {
+      "model": "Generated towers 18",
+      "bricks": 12,
+      "initiallyDisconnected": 6,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 263
+    },
+    {
+      "model": "Generated towers 19",
+      "bricks": 26,
+      "initiallyDisconnected": 12,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 1149
+    },
+    {
+      "model": "Generated towers 20",
+      "bricks": 22,
+      "initiallyDisconnected": 8,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 1082
+    },
+    {
+      "model": "Generated towers 21",
+      "bricks": 27,
+      "initiallyDisconnected": 14,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 1093
+    },
+    {
+      "model": "Generated towers 22",
+      "bricks": 11,
+      "initiallyDisconnected": 5,
+      "remaining": 0,
+      "repairs": 3,
+      "proofsReplayed": 3,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 391
+    },
+    {
+      "model": "Generated towers 23",
+      "bricks": 9,
+      "initiallyDisconnected": 5,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 202
+    },
+    {
+      "model": "Generated towers 24",
+      "bricks": 19,
+      "initiallyDisconnected": 12,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 836
+    },
+    {
+      "model": "Generated towers 25",
+      "bricks": 20,
+      "initiallyDisconnected": 12,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 851
+    },
+    {
+      "model": "Generated towers 26",
+      "bricks": 24,
+      "initiallyDisconnected": 12,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 959
+    },
+    {
+      "model": "Generated towers 27",
+      "bricks": 11,
+      "initiallyDisconnected": 5,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 240
+    },
+    {
+      "model": "Generated towers 28",
+      "bricks": 11,
+      "initiallyDisconnected": 3,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 223
+    },
+    {
+      "model": "Generated towers 29",
+      "bricks": 9,
+      "initiallyDisconnected": 3,
+      "remaining": 0,
+      "repairs": 2,
+      "proofsReplayed": 2,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 214
+    },
+    {
+      "model": "Generated towers 30",
+      "bricks": 14,
+      "initiallyDisconnected": 7,
+      "remaining": 0,
+      "repairs": 4,
+      "proofsReplayed": 4,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 491
+    },
+    {
+      "model": "Generated towers 31",
+      "bricks": 22,
+      "initiallyDisconnected": 11,
+      "remaining": 0,
+      "repairs": 5,
+      "proofsReplayed": 5,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 847
+    },
+    {
+      "model": "Generated towers 32",
+      "bricks": 16,
+      "initiallyDisconnected": 9,
+      "remaining": 0,
+      "repairs": 3,
+      "proofsReplayed": 3,
+      "anchorPositionsPreserved": true,
+      "milliseconds": 412
+    }
+  ]
+}

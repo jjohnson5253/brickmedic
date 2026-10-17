@@ -1,0 +1,11 @@
+{
+  "format": "brickmedic-durability-check/v1",
+  "checkedAt": "2026-10-17T18:54:17.915Z",
+  "method": "docker compose up -d --force-recreate --wait",
+  "appendOnlyPersistence": true,
+  "modelPreserved": true,
+  "revisionPreserved": true,
+  "activePlanPreserved": true,
+  "rejectionHistoryPreserved": true,
+  "sessionCookieExcluded": true
+}

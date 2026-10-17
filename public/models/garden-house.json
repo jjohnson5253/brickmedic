@@ -1,0 +1,96 @@
+{
+  "name": "Garden House",
+  "description": "A tiny garden studio with a floating roof assembly.",
+  "bricks": [
+    {
+      "id": "floor-a",
+      "part": "3020",
+      "color": 19,
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "rotated": false,
+      "label": "Foundation"
+    },
+    {
+      "id": "floor-b",
+      "part": "3020",
+      "color": 19,
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "rotated": false,
+      "label": "Foundation"
+    },
+    {
+      "id": "wall-left",
+      "part": "3010",
+      "color": 15,
+      "x": 0,
+      "y": 1,
+      "z": 0,
+      "rotated": false,
+      "label": "Left wall"
+    },
+    {
+      "id": "wall-right",
+      "part": "3010",
+      "color": 15,
+      "x": 3,
+      "y": 1,
+      "z": 0,
+      "rotated": false,
+      "label": "Right wall"
+    },
+    {
+      "id": "wall-back",
+      "part": "3004",
+      "color": 14,
+      "x": 1,
+      "y": 1,
+      "z": 3,
+      "rotated": true,
+      "label": "Back wall"
+    },
+    {
+      "id": "roof-left",
+      "part": "3020",
+      "color": 2,
+      "x": 0,
+      "y": 7,
+      "z": 0,
+      "rotated": false,
+      "label": "Floating roof"
+    },
+    {
+      "id": "roof-right",
+      "part": "3020",
+      "color": 2,
+      "x": 2,
+      "y": 7,
+      "z": 0,
+      "rotated": false,
+      "label": "Floating roof"
+    },
+    {
+      "id": "roof-ridge",
+      "part": "3020",
+      "color": 2,
+      "x": 0,
+      "y": 8,
+      "z": 1,
+      "rotated": true,
+      "label": "Roof ridge"
+    },
+    {
+      "id": "chimney",
+      "part": "3005",
+      "color": 484,
+      "x": 0,
+      "y": 9,
+      "z": 2,
+      "rotated": false,
+      "label": "Chimney"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "name": "Little Rover",
+  "description": "A survey rover with two disconnected instrument assemblies.",
+  "bricks": [
+    {
+      "id": "chassis-a",
+      "part": "3001",
+      "color": 25,
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "rotated": false,
+      "label": "Chassis"
+    },
+    {
+      "id": "chassis-b",
+      "part": "3001",
+      "color": 25,
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "rotated": false,
+      "label": "Chassis"
+    },
+    {
+      "id": "deck",
+      "part": "3020",
+      "color": 15,
+      "x": 0,
+      "y": 3,
+      "z": 1,
+      "rotated": true,
+      "label": "Deck"
+    },
+    {
+      "id": "cab",
+      "part": "3003",
+      "color": 1,
+      "x": 1,
+      "y": 4,
+      "z": 1,
+      "rotated": false,
+      "label": "Cab"
+    },
+    {
+      "id": "camera",
+      "part": "3005",
+      "color": 72,
+      "x": 0,
+      "y": 6,
+      "z": 0,
+      "rotated": false,
+      "label": "Floating camera"
+    },
+    {
+      "id": "camera-lens",
+      "part": "3024",
+      "color": 14,
+      "x": 0,
+      "y": 9,
+      "z": 0,
+      "rotated": false,
+      "label": "Camera lens"
+    },
+    {
+      "id": "sensor",
+      "part": "3005",
+      "color": 4,
+      "x": 3,
+      "y": 7,
+      "z": 3,
+      "rotated": false,
+      "label": "Floating sensor"
+    },
+    {
+      "id": "sensor-cap",
+      "part": "3024",
+      "color": 15,
+      "x": 3,
+      "y": 10,
+      "z": 3,
+      "rotated": false,
+      "label": "Sensor cap"
+    }
+  ]
+}
